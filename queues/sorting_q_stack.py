@@ -1,6 +1,7 @@
 # import queue
 # from acdm_workspace.dsa.stacks import stack
 
+
 class Queue:
     def __init__(self):
         self.items = []
@@ -57,24 +58,25 @@ def sort():
     q.enqueue(20)
     q.enqueue(60)
     q.enqueue(10)
-    # q.printQ()
-    # s.printStack()
 
-    # s.push(q.dequeue())
     q.printQ()
     s.printStack()
     print("|||||||||||||||||")
+    a = 1
 
     if s.isEmpty():
         s.push(q.dequeue())
 
     while not s.isEmpty():
-        if s.isEmpty():
+        if q.peek() > s.peek():
             s.push(q.dequeue())
-        elif q.peek() > s.peek():
-            s.push(q.dequeue())
+            print("2")
         else:
             q.enqueue(s.pop())
-    s.printStack()
-    q.printQ()
+            print("3")
+        s.printStack()
+        q.printQ()
+
+        print(">>", a, "<<")
+        a += 1
 sort()
