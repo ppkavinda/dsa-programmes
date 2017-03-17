@@ -65,5 +65,5 @@ def sort():
     s.printStack()
     print("|||||||||||||||||")
 
-   
+
 sort()
