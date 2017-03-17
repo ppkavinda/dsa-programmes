@@ -65,6 +65,16 @@ def sort():
     s.printStack()
     print("|||||||||||||||||")
 
-    if
+    if s.isEmpty():
+        s.push(q.dequeue())
 
+    while not s.isEmpty():
+        if s.isEmpty():
+            s.push(q.dequeue())
+        elif q.peek() > s.peek():
+            s.push(q.dequeue())
+        else:
+            q.enqueue(s.pop())
+    s.printStack()
+    q.printQ()
 sort()
