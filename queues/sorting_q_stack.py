@@ -4,26 +4,26 @@
 
 class Queue:
     def __init__(self):
-        self.items = []
+        self.qitems = []
 
     def isEmpty(self):
-        return len(self.items) == 0
+        return len(self.qitems) == 0
 
     def enqueue(self, item):
-        self.items.append(item)
+        self.qitems.append(item)
 
     def dequeue(self):
         assert not self.isEmpty(), "Cannot dequeue from an empty queue."
-        return self.items.pop(0)
+        return self.qitems.pop(0)
 
     def size(self):
-        return len(self.items)
+        return len(self.qitems)
 
     def peek(self):
-        return self.items[len(self.items) - 1]
+        return self.qitems[len(self.qitems) - 1]
 
     def printQ(self):
-        print(self.items)
+        print(self.qitems)
 
 
 class Stack:
@@ -58,25 +58,21 @@ def sort():
     q.enqueue(20)
     q.enqueue(60)
     q.enqueue(10)
+    q.enqueue(80)
+    q.enqueue(70)
 
     q.printQ()
     s.printStack()
     print("|||||||||||||||||")
     a = 1
 
-    if s.isEmpty():
-        s.push(q.dequeue())
-
-    while not s.isEmpty():
-        if q.peek() > s.peek():
+    while not q.isEmpty():
+        if s.isEmpty() or (s.peek() < q.peek()):
             s.push(q.dequeue())
-            print("2")
         else:
             q.enqueue(s.pop())
-            print("3")
-        s.printStack()
-        q.printQ()
 
-        print(">>", a, "<<")
-        a += 1
+        q.printQ()
+        s.printStack()
+        print("--------")
 sort()
