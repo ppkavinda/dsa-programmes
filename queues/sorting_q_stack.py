@@ -74,5 +74,5 @@ def sort():
 
         q.printQ()
         s.printStack()
-        print("--------")
+        print("---------")
 sort()
