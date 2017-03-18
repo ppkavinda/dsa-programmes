@@ -77,4 +77,3 @@ class LinkedList:
 
     def getSize(self):
         return self.numnodes
-
