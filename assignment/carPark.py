@@ -53,7 +53,7 @@ class carPark:
         self.lpNo = 0
 
     def arrive(self, lpNo):
-        print("Arriving a car")
+        print(">>>>Arriving a car")
         self.lpNo = lpNo
         if self.carLane.isFull():
             print("Car Lane is Full. Added the car 'License No: ", lpNo, "' the waiting list.")
@@ -73,8 +73,8 @@ class carPark:
                 self.count += 1
 
     def departure(self, cr):
-        print("Departing  a car")
-        for _ in range(1, 10):
+        print("<<<<Departing  a car")
+        for _ in range(1, 11):
             test = self.carLane.dequeue()
             if test.lpNo is cr:
                 print("Departing the car 'License No: ", test.lpNo, "'.")
@@ -91,8 +91,9 @@ class carPark:
     def det(self):
         print ("_-_-_-_-_-_-_-_-_-")
         print ("wtlist", self.waitList)
-        print ("carlist", self.carLane.items[0].lpNo, self.carLane.items[1].lpNo, self.carLane.items[2].lpNo, self.carLane.items[3].lpNo, self.carLane.items[4].lpNo, self.carLane.items[5].lpNo, self.carLane.items[6].lpNo, self.carLane.items[7].lpNo, self.carLane.items[8].lpNo,)
-        print ("-_-_-_-_-_-_-_-_-_")
+        # print ("carlist", self.carLane.items[0].lpNo, self.carLane.items[1].lpNo, self.carLane.items[2].lpNo, self.carLane.items[3].lpNo, self.carLane.items[4].lpNo, self.carLane.items[5].lpNo, self.carLane.items[6].lpNo, self.carLane.items[7].lpNo, self.carLane.items[8].lpNo,)
+        for x in range(0,len(self.carLane.items)):print(self.carLane.items[x].lpNo, " ", end='')
+        print ("\n-_-_-_-_-_-_-_-_-_")
 
 
 # end of carPark
@@ -110,5 +111,14 @@ cp.arrive(9)
 cp.arrive(10)
 # cp.arrive(11)
 # cp.arrive(12)
-cp.departure(1)
+# cp.departure(5)
+# cp.departure(9)
+# cp.arrive(12)
+# cp.arrive(13)
+# cp.arrive(14)
+# cp.departure(1)
+# cp.departure(8)
+cp.departure(7)
+cp.departure(2)
+
 cp.det()
