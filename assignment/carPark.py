@@ -26,6 +26,7 @@ class Queue:
         print(self.items)
 # end implementing the queue
 
+
 # implementing the car obj
 class Car:
     def __init__(self, lpNo):
@@ -33,9 +34,11 @@ class Car:
         self.count = 0
 # end implementing the Car
 
-def carPark():
+
+class carPark:
     maxCars = 10
     carLane = Queue()
+
 
 
 
