@@ -1,29 +1,21 @@
 # implementing class Node
 class Node:
     def __init__(self, processID, size):
-        self.beginAddress = None
-        self.endAddress = None
+        self.beginAddress = 0
+        self.endAddress = self.beginAddress + size - 1
         self.processID = processID
-        self.size = size
         self.hole = True
         self.next = None
-
-    def printNode(self):
-        print(self.data)
 
 
 # beginning of class memory
 class Memory:
     def __init__(self, freeMem):
-        self.beginAddress = 0
-        self.endAddress = 2560
-        self.pID = None
-        self.freeMem = freeMem
-        self.head = None
-
         os = Node("Operating System", 400)
         self.head = os
+        freeSpace = Node("Free Space", freeMem+1)
         os.next = None
+        self.head.hole = False
 
     def checkPExists(self, ps):
         current = self.head
