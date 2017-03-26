@@ -8,11 +8,9 @@ class Node:
         self.next = None
         self.size = size
 
-    def printSize(self):
-        print(self.size)
-
     def printNode(self):
         print(self.beginAddress, "K - ", self.endAddress, "K :", self.processID)
+
 
 # beginning of class memory
 class Memory:
@@ -28,10 +26,8 @@ class Memory:
         current = self.head
         while current is not None:
             if current.processID == ps:
-                print("T")  # todo
                 return True
             current = current.next
-        print("F")  # todo
         return False
 
     def allocate(self, pID, size):
@@ -44,18 +40,17 @@ class Memory:
                 if current.hole is True:
                     freeSpace = (current.endAddress + 1) - current.beginAddress
                     if freeSpace >= size:
-                        newPs = Node(pID, size)
-                        newPs.beginAddress = current.beginAddress
-                        newPs.endAddress = newPs.beginAddress + size - 1
-                        newPs.hole = False
-                        newPs.processID = pID
-                        current.beginAddress = newPs.endAddress + 1
-                        print(1, pID)  # TODO
-
+                        newPs = Node("Free Space", size)
+                        newPs.next = current.next
+                        current.next = newPs
+                        newPs.endAddress = current.endAddress
+                        current.endAddress = current.beginAddress + size - 1
+                        current.processID = pID
+                        current.hole = False
+                        newPs.beginAddress = current.endAddress + 1
                         break
 
                 current = current.next
-                print(2)  # todo
 
     def terminate(self, pID):
         current = self.head
@@ -66,19 +61,24 @@ class Memory:
                     current.next = current.next.next
                 current.hole = True
                 current.processID = "Free Space"
-                break
+                return
             current = current.next
-            print("Process ID '", pID, "' is not found.")
+        print("Process ID '", pID, "' is not found.")
 
     def snapshot(self):
         current = self.head
+        print("-----SNAPSHOT-----")
         while current is not None:
             current.printNode()
-            # print(current.beginAddress, "K - ", current.endAddress, "K :", current.processID)
             current = current.next
 
 
 m = Memory(2560)
 m.allocate("P1", 600)
-# m.allocate("P1", 600)
+m.allocate("P2", 1000)
+m.allocate("P3", 300)
+m.terminate("P2")
+m.allocate("P4", 700)
+m.terminate("P6")
+m.allocate("P5", 400)
 m.snapshot()
