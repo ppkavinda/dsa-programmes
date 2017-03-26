@@ -72,6 +72,7 @@ class carPark:
                 waitcar.count += 1
                 self.printList.append(lpNo)
                 # waitcar.count += 1
+        self.det()
 
     # departure method
     def departure(self, target):    # target = target car
@@ -99,41 +100,32 @@ class carPark:
             self.carLane.enqueue(waitcar)
             print("Added the car to the 'License No: ", waitcar.lpNo, "'from the waiting list.")
             self.printList.append(waitcar.lpNo)
+        self.det()
 
     # det method for (print)details
     def det(self):
-        print("------------------")
-        print("wtlist", self.waitList)
-        print(self.printList)
-        print("\n----------------")
+        print("Cars in wait list >>", self.waitList)
+        print("Cars in carPark >>", self.printList)
 
     # this is the organizing function
     def execute(self):
-        print("**********************\n")
+        cmd = open("input.txt", "r")
+        for line in cmd:
+            aord = str.upper(line[0])
+            lpNo = line[1:8]
 
-        try:
-            cmd = open("input.txt", "r")
-            for line in cmd:
-                aord = str.upper(line[0])
-                lpNo = line[1:8]
+            if aord == "A":
+                if (lpNo not in self.printList) and (lpNo not in self.waitList):
+                    self.arrive(lpNo)
+                else:
+                    print("There is a car in the car lane that has the same lpNo.")
 
-                if aord == "A":
-                    if (lpNo not in self.printList) and (lpNo not in self.waitList):
-                        self.arrive(lpNo)
-                    else:
-                        print("There is a car in the car lane that has the same lpNo.")
+            elif aord == "D":
+                if lpNo in self.printList:
+                    self.departure(lpNo)
+                else:
+                    print("There is no such car that has lpNo:'", lpNo, "'.")
 
-                elif aord == "D":
-                    if lpNo in self.printList:
-                        self.departure(lpNo)
-                    else:
-                        print("There is no such car that has lpNo:'", lpNo, "'.")
-        except:
-            print("Invalid Input. Please Enter correct format.")
-        finally:
-            print("-------------------------------------------\n")
-            self.det()
-            pass
 
 # end of carPark
 
