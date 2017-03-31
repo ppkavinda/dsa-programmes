@@ -45,7 +45,6 @@ class Car:
 class carPark:
     def __init__(self, maxCars):
         self.maxCars = maxCars  # defining max size of the garage
-        self.maxCars = 10
         self.carLane = Queue(maxCars)   # create carLane  q
         self.waitList = []              # create waitList (python)list
         self.printList = []
@@ -63,7 +62,6 @@ class carPark:
                 print("Car Lane is have room for ", self.maxCars - len(self.carLane.items) , "cars. Added the car 'License No: ", lpNo, "' to the Lane.")
                 self.carLane.enqueue(car)
                 self.printList.append(lpNo)
-                # car.count += 1
 
             else:   # if waiting list has cars add them to the carLane
                 print("Car Lane is have room for ", self.maxCars - len(self.carLane.items) , "cars. Added the car 'License No: ", lpNo, "' to the Lane from waiting list.")
@@ -71,7 +69,6 @@ class carPark:
                 self.carLane.enqueue(waitcar)
                 waitcar.count += 1
                 self.printList.append(lpNo)
-                # waitcar.count += 1
         self.det()
 
     # departure method
@@ -125,7 +122,6 @@ class carPark:
                     self.departure(lpNo)
                 else:
                     print("There is no such car that has lpNo:'", lpNo, "'.")
-
 
 # end of carPark
 
