@@ -1,0 +1,25 @@
+arriving a car: when car park is not full.
+
+>>>>Arriving a car
+Car Lane is have room for  2 cars. Added the car 'License No:   xxxxxx ' to the Lane.
+Cars in wait list >> []
+Cars in carPark >> [' xxxxxx', ' xxxxxx', ' xxxxxx', ' xxxxxx', ' xxxxxx', ' xxxxxx', ' xxxxxx', ' xxxxxx', ' xxxxxx']
+
+
+arriving a car: when car park is full.
+
+>>>>Arriving a car
+Car Lane is Full. Added the car 'License No:   xxxxxx ' to the waiting list.
+Cars in wait list >> [' xxxxxx', ' xxxxxx']
+Cars in carPark >> [' xxxxxx', ' xxxxxx', ' xxxxxx', ' xxxxxx', ' xxxxxx', ' xxxxxx']
+
+
+departing a car:
+
+<<<<Departing  a car
+Departing the car 'License No:   xxxxxx '.
+The car moved ' 1 'times through the car lane.
+There is room for a car.
+Added the car to the 'License No:   xxxxxx 'from the waiting list.
+Cars in wait list >> [' xxxxxx']
+Cars in carPark >> [' xxxxxx', ' xxxxxx', ' xxxxxx', ' xxxxxx', ' xxxxxx', ' xxxxxx']

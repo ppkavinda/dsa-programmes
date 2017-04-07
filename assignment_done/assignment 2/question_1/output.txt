@@ -1,0 +1,8 @@
+-----SNAPSHOT-----
+0 K -  399 K : Operating System
+400 K -  799 K : P5
+800 K -  999 K : Free Space
+1000 K -  1699 K : P4
+1700 K -  1999 K : Free Space
+2000 K -  2299 K : P3
+2300 K -  2560 K : Free Space

@@ -1,0 +1,28 @@
+implementing queue class
+    isEmpty()
+    isFull()
+    size()
+    enqueue(itme)
+    dequeue()
+
+implementing car class
+    variable for license number
+    variable for count the number of time the car moved through the car park
+
+arriving car:
+    print "arriving a car"
+    if car park is full:
+	print "car park is full"
+        add car to the waiting list
+    if not full:
+        check weather there if cars in wait list:
+            if there is, add the first on to the car park
+            if there isn't add the car to the park
+    if car park is full:
+        add the car to the waiting list
+
+departing car:
+    print "departing a car"
+    dequeue all cars one by one and enqueue back into queue, if the matching car skip it
+    if there any cars in the wait list, add the last one to the car park
+    print "adding car from wait list"
