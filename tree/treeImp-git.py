@@ -122,6 +122,7 @@ class Node(object):
 # Compare 2 trees
 # node tree's root node to compare to
 # True if the tree passed is identical to this tree
+
     def compare_trees(self, node):
         if node is None:
             return False
