@@ -16,34 +16,34 @@ class Doubly_Linked_list:
         self.tail = None
         self.prob = self.head
 
-    # def insert(self, data_in):
-    #     new_node = Node(data_in)
-    #
-    #     if self.head is None:
-    #         self.head = new_node
-    #         self.tail = self.head
-    #         self.prob = self.head
-    #
-    #     elif data_in < self.head.data:
-    #         new_node.next = self.head
-    #         self.head.prev = new_node
-    #         self.head = new_node
-    #
-    #     elif data_in > self.tail.data:
-    #         self.tail.next = new_node
-    #         new_node.prev = self.tail
-    #         self.tail = new_node
-    #
-    #     else:
-    #         tmp = self.head
-    #         while tmp is not None and tmp.data < data_in:
-    #             tmp = tmp.next
-    #         place = tmp.prev
-    #
-    #         new_node.next = place.next
-    #         place.next.prev = new_node
-    #         new_node.prev = place
-    #         place.next = new_node
+    def insert(self, data_in):
+        new_node = Node(data_in)
+
+        if self.head is None:
+            self.head = new_node
+            self.tail = self.head
+            self.prob = self.head
+
+        elif data_in < self.head.data:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
+
+        elif data_in > self.tail.data:
+            self.tail.next = new_node
+            new_node.prev = self.tail
+            self.tail = new_node
+
+        else:
+            tmp = self.head
+            while tmp is not None and tmp.data < data_in:
+                tmp = tmp.next
+            place = tmp.prev
+
+            new_node.next = place.next
+            place.next.prev = new_node
+            new_node.prev = place
+            place.next = new_node
 
     def remove(self, data):
         if self.head is None:
@@ -83,7 +83,6 @@ class Doubly_Linked_list:
                 print(temp.data, " ",  end='')
                 temp = temp.next
             print(self.tail.data)
-            # print("P:", self.prob.data)
         else:
             print("List is Empty.")
 
