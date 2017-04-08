@@ -1,4 +1,5 @@
 # double linked list implementation
+# work with ONLY numbers
 
 
 # class node
