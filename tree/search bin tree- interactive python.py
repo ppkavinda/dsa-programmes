@@ -205,5 +205,12 @@ mytree[4] = "blue"
 mytree[6] = "yellow"
 mytree[2] = "at"
 
-print(mytree[6])
-print(mytree[2])
+# print(mytree[6])
+# print(mytree[2])
+mytree.put(6, "green")
+print(mytree.root.payload)
+print(mytree.root.leftChild.payload)
+print(mytree.root.rightChild.payload)
+print(mytree.root.rightChild.rightChild.payload)
+print(mytree.root.rightChild.rightChild.rightChild.payload)
+print(mytree.size)
