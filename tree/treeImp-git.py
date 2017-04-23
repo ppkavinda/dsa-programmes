@@ -97,6 +97,7 @@ class Node(object):
                     parent.left = successor.right
                 else:
                     parent.right = successor.right
+
     def inorder_print(self):
         if self.left:
             self.left.inorder_print()
@@ -111,14 +112,14 @@ class Node(object):
         # While there is another level
         while thislevel:
             nextlevel = list()
-            #Print all the nodes in the current level, and store the next level in a list
+
+            # Print all the nodes in the current level, and store the next level in a list
             for node in thislevel:
                 print(node.data)
                 if node.left: nextlevel.append(node.left)
                 if node.right: nextlevel.append(node.right)
             print()
             thislevel = nextlevel
-
 
     def compare_trees(self, node):
         if node is None:
@@ -164,4 +165,5 @@ root.insert(4)
 root.insert(7)
 root.insert(14)
 root.insert(13)
-import pdb; pdb.set_trace()
+
+# import pdb; pdb.set_trace()
