@@ -105,9 +105,13 @@ class Doubly_Linked_list:
             while self.prob is not None and self.prob.data != data:
                 self.prob = self.prob.prev
                 node = self.prob
-            node.prev.next = node.next
-            node.next.prev = node.prev
-            del node
+
+            if self.prob.data == data:
+                node.prev.next = node.next
+                node.next.prev = node.prev
+                del node
+            else:
+                print("Error: " + str(data) + " is not in the list.")
 
         elif data > self.prob.data:
             while self.prob is not None and self.prob.data != data:
