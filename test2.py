@@ -23,7 +23,6 @@ class Graph:
                 tmp = tmp.bottom
 
             if tmp.bottom is not None or tmp.data == v1:
-                print("SDf")
                 # tmp = tmp.bottom
                 tmp2 = Node(v2)
                 tmp2.right = tmp.right
@@ -38,19 +37,20 @@ class Graph:
             self.head = self.head.bottom
         else:
             tmp = self.head
-            p =tmp
-            while tmp is not None:
-                if tmp.data == v:
-                    p
-                    print(tmp.data)
-                    tmp.bottom = tmp.bottom.bottom
-                tmp2 = tmp
-                while tmp2 is not None:
-                    if tmp2.data == v:
-                        tmp2.right = tmp2.right.right
-                    tmp2 = tmp2.right
+            while tmp.bottom is not None:
+                prev1 = tmp
+                tmp2 = prev1
                 tmp = tmp.bottom
+                if tmp.data == v:
 
+                    # print(tmp.data)
+                    prev1.bottom = tmp.bottom
+                while tmp2.right is not None:
+                    prev2 = tmp2
+                    # print(prev2.data)
+                    tmp2 = tmp2.right
+                    if tmp2.data == v:
+                        prev2.right = tmp2.right
 
     def printg(self):
         tmp = self.head
@@ -64,19 +64,18 @@ class Graph:
             tmp = tmp.bottom
 
 g = Graph()
-g.add(5, 6)
+g.add(1, 6)
 g.add(2, 3)
+g.add(3, 5)
 g.add(4, 5)
 g.add(5, 8)
-g.add(2, 7)
-g.add(2, 4)
+g.add(4, 7)
+g.add(4, 7)
 g.add(4, 5)
 g.add(1, 5)
+g.add(5, 2)
 g.printg()
 print("LKJ")
-g.remove(2)
+g.remove(5)
+g.remove(6)
 g.printg()
-# print(g.head.data, g.head.right.data, g.head.right.right)
-# print(g.head.bottom.data, g.head.right.data, g.head.bottom.right.right)
-# print(g.head.bottom.bottom.data, g.head.right.data, g.head.bottom.bottom.right.right)
-# print(g.head.bottom.bottom.bottom.data, g.head.right.data, g.head.bottom.bottom.bottom.right.right)
