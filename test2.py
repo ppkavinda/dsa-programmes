@@ -1,3 +1,4 @@
+import sys
 WHITE = 0
 GRAY = 1
 BLACK = 2
@@ -7,10 +8,10 @@ class Node:
     def __init__(self, data):
         self.data = data
         self.bottom = None
-        self.right = None
         self.color = WHITE
+        self.right = None
         self.parent = None
-        self.distance = None
+        self.distance = sys.maxsize
 
 
 class Graph:
@@ -24,7 +25,8 @@ class Graph:
 
     def _add(self, v1, v2):
         if self.head is None:
-            self.head = Node(v1)
+            n1 = Node(v1)
+            self.head = n1
             self.head.right = Node(v2)
 
         else:
@@ -64,52 +66,42 @@ class Graph:
                     if tmp2.data == v:
                         prev2.right = tmp2.right
 
-    nodes = {}
-
     def find(self, v):
         tmp = self.head
-        while tmp.bottom is not None:
+        while tmp is not None:
             if tmp.data == v:
-                break
+                return tmp
             tmp = tmp.bottom
-        return tmp
+        return None
 
     def bfs(self, v1):
+        tmp = self.head
+        while tmp is not None:
+            tmp.color = WHITE
+            tmp.distance = sys.maxsize
+            tmp = tmp.bottom
         q = []  # queue for breadth first search
-        tmp1 = self.head
-
         #   finding the v1 node in toBottom list
-        while tmp1 is not None:
-            if tmp1.data == v1:
-                tmp1.color = GRAY
-                tmp1.distance = 0
-                tmp1.parent = None
-                q.append(tmp1)      # enqueue it to the q
-                break
-            tmp1 = tmp1.bottom
+        tmp1 = self.find(v1)
+        tmp1.color = GRAY
+        tmp1.distance = 0
+        tmp1.parent = None
+        q.append(tmp1)      # enqueue it to the q
 
-        # start searching
-        while len(q) != 0:      # looping through the q
+        # start BFSearching
+        while 0 < len(q):      # looping through the q
             u = q.pop(0)
-            tmp = self.find(u)
-            while tmp is not None:      # tmp = adjacent nodes to u(to be GRAY)
-                if tmp.color == WHITE:
-                    tmp2 = self.head            # ^
-                    while tmp2 is not None:     # | looping through the graph to change each node that has the val v1
-                        tmp3 = tmp2             # - tmp3 =
-                        print("tmp3", tmp.data)
-                        while tmp3 is not None:
-                            print(tmp.data, tmp3.data)
-                            if tmp3.data == tmp.data:       # finding all tmp nodes in graph
-                                tmp3.color = GRAY           # changing the val of them
-                                tmp3.distance = u.distance + 1
-                                tmp3.parent = u
-
-                            tmp3 = tmp3.right
-                        tmp2 = tmp2.bottom
-                    q.append(tmp)
-                u.color = BLACK
+            tmp = self.find(u.data)
+            # tmp =  adjacent nodes of u
+            while tmp is not None:      # finding adjacent nodes
+                tmp3 = self.find(tmp.data)  # get the appropriate node(tmp3) from the toBottom list
+                if tmp3.color == WHITE:     # if tmp3 is white do the changes
+                    tmp3.color = GRAY
+                    tmp3.distance = u.distance + 1
+                    tmp3.parent = u
+                    q.append(tmp3)
                 tmp = tmp.right
+            u.color = BLACK
 
     def printg(self):
         tmp = self.head
@@ -117,7 +109,7 @@ class Graph:
             # print(tmp.data)
             tmp2 = tmp
             while tmp2 is not None:
-                print(tmp2.data, tmp2.color, end=', ')
+                print("(" + str(tmp2.data) + ") d-" + str(tmp2.distance) + " c-" + str(tmp2.color), end=' >> ')
                 tmp2 = tmp2.right
             print()
             tmp = tmp.bottom
