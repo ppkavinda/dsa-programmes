@@ -1,3 +1,5 @@
+# complete
+
 import sys
 WHITE = 0
 GRAY = 1
@@ -56,9 +58,8 @@ class Graph:
                 tmp2 = prev1
                 tmp = tmp.bottom
                 if tmp.data == v:
-
-                    # print(tmp.data)
                     prev1.bottom = tmp.bottom
+
                 while tmp2.right is not None:
                     prev2 = tmp2
                     # print(prev2.data)
