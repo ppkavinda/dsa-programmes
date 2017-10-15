@@ -1,5 +1,7 @@
 import re
 import math
+import timeit
+start_time = timeit.default_timer()
 
 
 # # a class for store the 2 points of a line
@@ -14,7 +16,7 @@ lines = []     # for store all lines(lists) >> [ [[st_x, st_y], [en_x, en_y]], [
 
 for _ in range(N):      # appending lines(lists) to 'points' point(list)
     i = input()
-    line = re.findall(r"[+-]?\d+(?:\.\d+)?", i)
+    line = re.findall(r'[+-]?\d+(?:\.\d+)?', i)
     lines.append([[int(line[0]), int(line[1])], [int(line[2]), int(line[3])]])
 
 
@@ -41,7 +43,7 @@ def positionOfPoint(mainLine, point):
     exp = -(x1 - x2) * y3 + (y1 - y2) * x3 + x1 * y2 - x2 * y1
     if y1-y2 < 0:
         exp = -exp
-    print("exp", point, exp)
+    # print("exp", mainLine, point, exp)
     return exp
 
 # print(positionOfPoint(lines[S-1], [2, 0]))
@@ -54,17 +56,36 @@ def positionOfLine(mainLine, target):
     p1 = positionOfPoint(mainLine, target[0])
     p2 = positionOfPoint(mainLine, target[1])
 
-    if p1 > 0 and p2 > 0:
-        print("front")
+    if p1 == 0 and p2 == 0:
+        # print("on")
+        return 3
+    elif p1 >= 0 and p2 >= 0:
+        # print("front")
         return 0
-    elif p1 < 0 and p2 < 0:
-        print("back")
+    elif p1 <= 0 and p2 <= 0:
+        # print("back")
         return 1
     else:
-        print("on")
+        # print("intersect")
         return 2
 
-# positionOfLine(lines[S-1], [[1, 1], [2, 2]])
+
+def lineIntersection(line1, line2):
+    xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
+    ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1])
+
+    def det(a, b):
+        return a[0] * b[1] - a[1] * b[0]
+
+    div = det(xdiff, ydiff)
+    if div == 0:
+        # print(line1, line2)
+        raise Exception('lines do not intersect')
+
+    d = (det(*line1), det(*line2))
+    x = det(d, xdiff) / div
+    y = det(d, ydiff) / div
+    return [x, y]
 
 
 class Node:
@@ -81,11 +102,11 @@ class Tree:
         self.cont = 0
 
     def insert(self):
-        allInFrontOf = True  # to check if all lines are in front of others
-        for j in lines:  # checking...
-            if not positionOfLine(lines[S-1], j) > 0:
-                allInFrontOf = False
-                break  # break if not
+        allInFrontOf = False  # to check if all lines are in front of others
+        # for j in lines:  # checking...
+        #     if positionOfLine(lines[S-1], j) == 0:
+        #         allInFrontOf = False
+        #         break  # break if not
 
         if not allInFrontOf and len(lines) > 1:
             self._insert(lines[S-1], lines, self.root)
@@ -93,26 +114,39 @@ class Tree:
     def _insert(self, mainLine, data, current):
         # front, back for hold the front & back lines, tmp for hold the first ele of data(first line)
         front, back, tmp = [], [], data[0]
-        print(front, back, tmp)
+        mainLine = tmp
+        # print("tmp", tmp)
         while len(data) > 0:        # divide data(lines) onto two lists(back/front)
-            j = data.pop()
-            print("DONE", j)
-            if positionOfLine(mainLine, j) == 0:
-                print("0")
-                front.append(j)
-            elif positionOfLine(mainLine, j) == 1:
-                print("1")
-                back.append(j)
+            j = data.pop(0)          # j is a line [[x1, y1], [x2, y2]]
+            # print("DONE", j)
+            if j != tmp:
+                posLine = positionOfLine(mainLine, j)
+                if posLine == 0:
+                    # print("0")
+                    front.append(j)
+                elif posLine == 1:
+                    # print("1")
+                    back.append(j)
+                elif posLine == 2:
+                    intPoint = lineIntersection(mainLine, j)
+                    if positionOfLine(mainLine, [j[0], intPoint]) == 0:
+                        front.append([j[0], intPoint])
+                        back.append([intPoint, j[1]])
+                    else:
+                        front.append([intPoint, j[1]])
+                        back.append([j[0], intPoint])
+                    # print("2")
 
         fnode = Node(front)
         bnode = Node(back)
+        # print("INSERTED", current.data)
         current.front = fnode
         current.back = bnode
-        current.data.append(tmp)
+        current.data = tmp
 
         allInFrontOf = True     # to check if all lines are in front of others
         for j in front:         # checking...
-            if not positionOfLine(tmp, j) > 0:
+            if positionOfLine(tmp, j) == 0:
                 allInFrontOf = False
                 break           # break if not
 
@@ -137,11 +171,10 @@ class Tree:
             print(current_node.back.data)
             self._pre_order(current_node.back)
 
-
 t = Tree()
 t.insert()
-print(t.root.data)
+# print(t.root.data)
 print("T")
+# start_time = timeit.default_timer
 t.printTree()
-
-
+print("%s seconds" % (timeit.default_timer() - start_time))
