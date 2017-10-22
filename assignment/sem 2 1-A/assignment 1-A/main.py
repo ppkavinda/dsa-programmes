@@ -183,7 +183,6 @@ class Tree:
 
 t = Tree()
 t.insert()
-print("in-order:")
 t.printTree()
 print("front most", t.getFrontMost())
 print("face2face: ")
